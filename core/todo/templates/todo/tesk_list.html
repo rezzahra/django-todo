@@ -1,0 +1,25 @@
+<html>
+<form action="{% url 'create_task' %}" method="POST">
+    {% csrf_token %}
+    <input type="text"  name="title" placeholder="Enter task title">
+    <button type="submit">add</button>
+    <br>
+    {% for task in tasks %}
+        <br>
+            {% if task.done == True %}
+              <strike>{{task.title}}</strike>
+              {% else %}
+              <span>{{task}}</span>
+            {% endif %}
+
+
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="{% url 'done_task' task.id %}">Done</a></li>
+
+              <li><a class="dropdown-item" href="{% url 'delete_task' task.id %}">Dell</a></li>
+              <li><a class="dropdown-item" href="{% url 'update_task' task.id %}">Edit</a></li>
+            </ul>
+    {% endfor %}
+
+</form>
+</html>
